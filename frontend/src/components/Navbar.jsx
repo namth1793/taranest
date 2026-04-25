@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { ChevronDown, Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search, Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const logo = '/logo.png';
@@ -65,7 +65,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link to="/" className="shrink-0">
-            <img src={logo} alt="TARA NEST" className="h-16 w-auto object-contain" />
+            <img src={logo} alt="TARA NEST" className="h-[6rem] w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}

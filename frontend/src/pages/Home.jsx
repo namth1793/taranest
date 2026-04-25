@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Star, ArrowRight, Shield, Truck, Award, Leaf } from 'lucide-react';
 import { getCategories, getProducts, getBlogPosts, getTestimonials } from '../lib/api';
 import ProductCard from '../components/ProductCard';
-import bannerImg from '../../assets/banner.jpg';
+const bannerImg = '/banner.jpg';
 
 const benefits = [
   { icon: <Leaf size={28} className="text-green-600" />, title: '100% Tự Nhiên', desc: 'Không chất bảo quản, không phẩm màu nhân tạo, nguyên chất từ thiên nhiên' },

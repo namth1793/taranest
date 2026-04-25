@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Search, Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import logo from '../../assets/logo.png';
+
+const logo = '/logo.png';
 
 const navItems = [
   { label: 'Trang Chủ', to: '/' },

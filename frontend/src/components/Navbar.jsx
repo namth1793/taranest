@@ -65,7 +65,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link to="/" className="shrink-0">
-            <img src={logo} alt="TARA NEST" className="h-[6rem] w-auto object-contain" />
+            <img src={logo} alt="TARA NEST" className="h-[3.5rem] w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}

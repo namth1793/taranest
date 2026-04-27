@@ -36,7 +36,7 @@ export default function Contact() {
 
             <div className="space-y-5 mb-8">
               {[
-                { icon: <MapPin className="text-primary-600" size={20} />, title: 'Địa Chỉ', lines: ['123 Đường Lê Văn Lương, Thanh Xuân, Hà Nội'] },
+                { icon: <MapPin className="text-primary-600" size={20} />, title: 'Địa Chỉ', lines: ['59 Đốc Ngữ - Ba Đình - Hà Nội'] },
                 { icon: <Phone className="text-primary-600" size={20} />, title: 'Điện Thoại', lines: ['0349 166 669 (Kinh doanh)', '0349 166 669 (Hỗ trợ)'] },
                 { icon: <Mail className="text-primary-600" size={20} />, title: 'Email', lines: ['info@taranest.vn', 'sales@taranest.vn'] },
                 { icon: <Clock className="text-primary-600" size={20} />, title: 'Giờ Làm Việc', lines: ['Thứ 2 – Thứ 7: 8:00 – 20:00', 'Chủ Nhật: 9:00 – 17:00'] },
@@ -71,7 +71,7 @@ export default function Contact() {
             {/* Map */}
             <div className="mt-6 bg-white rounded-xl shadow-sm overflow-hidden h-56">
               <iframe
-                src="https://www.openstreetmap.org/export/embed.html?bbox=105.79,20.98,105.83,21.02&layer=mapnik"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=105.819,21.042,105.839,21.052&layer=mapnik&marker=21.047,105.829"
                 className="w-full h-full border-0"
                 title="TARA NEST Location"
               />

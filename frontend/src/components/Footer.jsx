@@ -70,7 +70,7 @@ export default function Footer() {
           <div className="space-y-3 text-sm text-primary-300">
             <div className="flex gap-2">
               <MapPin size={16} className="text-gold shrink-0 mt-0.5" />
-              <span>123 Đường Lê Văn Lương, Thanh Xuân, Hà Nội</span>
+              <span>59 Đốc Ngữ - Ba Đình - Hà Nội</span>
             </div>
             <div className="flex gap-2">
               <Phone size={16} className="text-gold shrink-0" />

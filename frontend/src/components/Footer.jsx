@@ -104,8 +104,8 @@ export default function Footer() {
 
       <div className="border-t border-primary-900 py-4 text-xs text-primary-500 max-w-7xl mx-auto px-4 flex items-center justify-between">
         <span>© 2024 TARA NEST – Tinh Hoa Yến Sào Thiên Nhiên. All rights reserved.</span>
-        <Link to="/admin/login" className="text-primary-800 hover:text-primary-500 transition-colors" title="Admin">
-          <Lock size={13} />
+        <Link to="/admin/login" className="flex items-center gap-1 text-primary-600 hover:text-primary-300 transition-colors text-xs">
+          <Lock size={11} /> Admin
         </Link>
       </div>
     </footer>

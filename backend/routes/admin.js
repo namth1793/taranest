@@ -2,12 +2,32 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const { v2: cloudinary } = require('cloudinary');
 const { db } = require('../db/database');
 const auth = require('../middleware/auth');
 
 const SECRET = process.env.JWT_SECRET || 'taranest_admin_secret_2024';
 
-// POST /api/admin/login
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 8 * 1024 * 1024 } });
+
+function uploadToCloudinary(buffer) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'taranest', resource_type: 'image' },
+      (err, result) => { if (err) reject(err); else resolve(result); }
+    );
+    stream.end(buffer);
+  });
+}
+
+// ── AUTH ─────────────────────────────────────────────────
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) return res.status(400).json({ error: 'Thiếu thông tin' });
@@ -18,12 +38,22 @@ router.post('/login', (req, res) => {
   res.json({ token, username: admin.username });
 });
 
-// GET /api/admin/verify
 router.get('/verify', auth, (req, res) => {
   res.json({ ok: true, username: req.admin.username });
 });
 
-// ── ORDERS ──────────────────────────────────────────────
+// ── UPLOAD ───────────────────────────────────────────────
+router.post('/upload', auth, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Không có file ảnh' });
+  try {
+    const result = await uploadToCloudinary(req.file.buffer);
+    res.json({ url: result.secure_url });
+  } catch (err) {
+    res.status(500).json({ error: 'Upload thất bại: ' + err.message });
+  }
+});
+
+// ── ORDERS ───────────────────────────────────────────────
 router.get('/orders', auth, (req, res) => {
   res.json(db.prepare('SELECT * FROM orders ORDER BY id DESC').all());
 });
@@ -41,7 +71,7 @@ router.delete('/orders/:id', auth, (req, res) => {
   res.json({ ok: true });
 });
 
-// ── CONTACTS ────────────────────────────────────────────
+// ── CONTACTS ─────────────────────────────────────────────
 router.get('/contacts', auth, (req, res) => {
   res.json(db.prepare('SELECT * FROM contacts ORDER BY id DESC').all());
 });
@@ -51,21 +81,62 @@ router.delete('/contacts/:id', auth, (req, res) => {
   res.json({ ok: true });
 });
 
-// ── PRODUCTS ────────────────────────────────────────────
+// ── PRODUCTS ─────────────────────────────────────────────
 router.get('/products', auth, (req, res) => {
-  res.json(db.prepare('SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.id DESC').all());
+  const rows = db.prepare(`
+    SELECT p.*, c.name as category_name
+    FROM products p LEFT JOIN categories c ON p.category_id = c.id
+    ORDER BY p.id ASC
+  `).all();
+  res.json(rows);
 });
 
-router.patch('/products/:id', auth, (req, res) => {
-  const { name, price, original_price, stock, is_featured, is_bestseller } = req.body;
-  db.prepare(`UPDATE products SET name=?, price=?, original_price=?, stock=?, is_featured=?, is_bestseller=? WHERE id=?`)
-    .run(name, price, original_price, stock, is_featured ? 1 : 0, is_bestseller ? 1 : 0, req.params.id);
+router.put('/products/:id', auth, (req, res) => {
+  const { name, short_desc, description, price, original_price, stock, is_featured, is_bestseller, image } = req.body;
+  if (!name || !price) return res.status(400).json({ error: 'Thiếu tên hoặc giá' });
+  db.prepare(`
+    UPDATE products
+    SET name=?, short_desc=?, description=?, price=?, original_price=?, stock=?, is_featured=?, is_bestseller=?, image=?
+    WHERE id=?
+  `).run(name, short_desc || '', description || '', Number(price), Number(original_price) || null,
+     Number(stock) || 0, is_featured ? 1 : 0, is_bestseller ? 1 : 0, image || '', req.params.id);
   res.json({ ok: true });
 });
 
-// ── BLOG ────────────────────────────────────────────────
+// ── BLOG ─────────────────────────────────────────────────
 router.get('/blog', auth, (req, res) => {
   res.json(db.prepare('SELECT * FROM blog_posts ORDER BY id DESC').all());
+});
+
+function makeSlug(title) {
+  return title.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[đĐ]/g, 'd')
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim().replace(/\s+/g, '-')
+    .slice(0, 80) + '-' + Date.now().toString().slice(-5);
+}
+
+router.post('/blog', auth, (req, res) => {
+  const { title, excerpt, content, image, author } = req.body;
+  if (!title) return res.status(400).json({ error: 'Thiếu tiêu đề' });
+  const slug = makeSlug(title);
+  const r = db.prepare('INSERT INTO blog_posts (title, slug, excerpt, content, image, author) VALUES (?,?,?,?,?,?)')
+    .run(title, slug, excerpt || '', content || '', image || '', author || 'TARA NEST');
+  res.status(201).json({ id: r.lastInsertRowid, slug });
+});
+
+router.put('/blog/:id', auth, (req, res) => {
+  const { title, excerpt, content, image, author } = req.body;
+  if (!title) return res.status(400).json({ error: 'Thiếu tiêu đề' });
+  db.prepare('UPDATE blog_posts SET title=?, excerpt=?, content=?, image=?, author=? WHERE id=?')
+    .run(title, excerpt || '', content || '', image || '', author || 'TARA NEST', req.params.id);
+  res.json({ ok: true });
+});
+
+router.delete('/blog/:id', auth, (req, res) => {
+  db.prepare('DELETE FROM blog_posts WHERE id = ?').run(req.params.id);
+  res.json({ ok: true });
 });
 
 module.exports = router;

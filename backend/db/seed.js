@@ -166,23 +166,25 @@ module.exports = function seed(db) {
     'Tác Dụng Của Yến Sào Đối Với Sức Khỏe Con Người',
     'tac-dung-cua-yen-sao-doi-voi-suc-khoe',
     'Yến sào từ lâu đã được mệnh danh là "vàng trắng" của thiên nhiên, với vô số lợi ích sức khỏe đã được khoa học chứng minh...',
-    `<h2>Yến Sào - Báu Vật Từ Thiên Nhiên</h2>
-<p>Yến sào (tổ chim yến) từ lâu đã được mệnh danh là "vàng trắng" của thiên nhiên. Trong y học cổ truyền phương Đông, yến sào được sử dụng hàng nghìn năm như một thực phẩm bổ dưỡng cao cấp, đặc biệt phổ biến tại Trung Quốc, Việt Nam và các nước Đông Nam Á.</p>
+    `YẾN SÀO - BÁU VẬT TỪ THIÊN NHIÊN
 
-<h2>Thành Phần Dinh Dưỡng</h2>
-<p>Yến sào chứa hàm lượng cao protein (lên đến 50%), nhiều axit amin thiết yếu, glycoprotein, khoáng chất (canxi, sắt, kali, phốt pho) và vitamin nhóm B. Đặc biệt, glycoprotein trong yến sào có khả năng kích thích tăng trưởng tế bào, giúp phục hồi và tái tạo tổ chức cơ thể.</p>
+Yến sào (tổ chim yến) từ lâu đã được mệnh danh là "vàng trắng" của thiên nhiên. Trong y học cổ truyền phương Đông, yến sào được sử dụng hàng nghìn năm như một thực phẩm bổ dưỡng cao cấp, đặc biệt phổ biến tại Trung Quốc, Việt Nam và các nước Đông Nam Á.
 
-<h2>Lợi Ích Đối Với Sức Khỏe</h2>
-<ul>
-<li><strong>Tăng cường hệ miễn dịch:</strong> Các polysaccharide trong yến sào giúp kích hoạt tế bào miễn dịch, tăng khả năng chống bệnh tật của cơ thể.</li>
-<li><strong>Cải thiện tiêu hóa:</strong> Yến sào hỗ trợ tiêu hóa, giảm viêm loét dạ dày và cải thiện hấp thu dinh dưỡng.</li>
-<li><strong>Làm đẹp da:</strong> Glycoprotein kích thích sản sinh collagen, giúp da mềm mịn, giảm nếp nhăn và làm chậm quá trình lão hóa.</li>
-<li><strong>Bổ não, tăng trí nhớ:</strong> Đặc biệt tốt cho trẻ em đang phát triển và người cao tuổi cần cải thiện trí nhớ.</li>
-<li><strong>Phục hồi sức khỏe:</strong> Lý tưởng cho người ốm dậy, phụ nữ sau sinh, người cao tuổi cần bồi bổ cơ thể.</li>
-</ul>
+THÀNH PHẦN DINH DƯỠNG
 
-<h2>Cách Dùng Hiệu Quả</h2>
-<p>Để đạt hiệu quả tốt nhất, nên dùng yến sào vào buổi sáng khi đói, hoặc tối trước khi ngủ. Mỗi ngày 1 lọ yến chưng (khoảng 30-50ml). Nên dùng liên tục ít nhất 1 tháng để thấy rõ hiệu quả.</p>`,
+Yến sào chứa hàm lượng cao protein (lên đến 50%), nhiều axit amin thiết yếu, glycoprotein, khoáng chất (canxi, sắt, kali, phốt pho) và vitamin nhóm B. Đặc biệt, glycoprotein trong yến sào có khả năng kích thích tăng trưởng tế bào, giúp phục hồi và tái tạo tổ chức cơ thể.
+
+LỢI ÍCH ĐỐI VỚI SỨC KHỎE
+
+• Tăng cường hệ miễn dịch: Các polysaccharide trong yến sào giúp kích hoạt tế bào miễn dịch, tăng khả năng chống bệnh tật của cơ thể.
+• Cải thiện tiêu hóa: Yến sào hỗ trợ tiêu hóa, giảm viêm loét dạ dày và cải thiện hấp thu dinh dưỡng.
+• Làm đẹp da: Glycoprotein kích thích sản sinh collagen, giúp da mềm mịn, giảm nếp nhăn và làm chậm quá trình lão hóa.
+• Bổ não, tăng trí nhớ: Đặc biệt tốt cho trẻ em đang phát triển và người cao tuổi cần cải thiện trí nhớ.
+• Phục hồi sức khỏe: Lý tưởng cho người ốm dậy, phụ nữ sau sinh, người cao tuổi cần bồi bổ cơ thể.
+
+CÁCH DÙNG HIỆU QUẢ
+
+Để đạt hiệu quả tốt nhất, nên dùng yến sào vào buổi sáng khi đói, hoặc tối trước khi ngủ. Mỗi ngày 1 lọ yến chưng (khoảng 30-50ml). Nên dùng liên tục ít nhất 1 tháng để thấy rõ hiệu quả.`,
     'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80',
     'TARA NEST'
   );
@@ -191,24 +193,27 @@ module.exports = function seed(db) {
     'Cách Phân Biệt Yến Sào Thật Và Yến Giả Trên Thị Trường',
     'cach-phan-biet-yen-sao-that-va-yen-gia',
     'Với giá trị cao trên thị trường, yến sào thường bị làm giả bằng nhiều nguyên liệu khác nhau. Bài viết này hướng dẫn bạn cách nhận biết yến thật...',
-    `<h2>Tình Trạng Yến Giả Trên Thị Trường</h2>
-<p>Với giá trị kinh tế cao, yến sào đang bị làm giả tràn lan trên thị trường. Yến giả thường được làm từ rong biển, thạch agar, nước đường pha màu hoặc các nguyên liệu rẻ tiền khác. Việc phân biệt yến thật - giả không dễ với người tiêu dùng thông thường.</p>
+    `TÌNH TRẠNG YẾN GIẢ TRÊN THỊ TRƯỜNG
 
-<h2>Dấu Hiệu Nhận Biết Yến Thật</h2>
-<h3>1. Kiểm tra bằng mắt</h3>
-<p>Yến thật có màu trắng ngà đến vàng nhạt tự nhiên, hình dạng tổ cuộn, sợi yến mảnh và rõ nét. Bề mặt hơi bóng nhẹ, không quá trắng bất thường (dấu hiệu tẩy trắng bằng hóa chất).</p>
+Với giá trị kinh tế cao, yến sào đang bị làm giả tràn lan trên thị trường. Yến giả thường được làm từ rong biển, thạch agar, nước đường pha màu hoặc các nguyên liệu rẻ tiền khác. Việc phân biệt yến thật - giả không dễ với người tiêu dùng thông thường.
 
-<h3>2. Kiểm tra khi ngâm nước</h3>
-<p>Yến thật khi ngâm nước lạnh sẽ nở ra từ từ, sợi yến dài và dai, không tan rã. Yến giả thường tan nhanh hoặc không nở đều.</p>
+DẤU HIỆU NHẬN BIẾT YẾN THẬT
 
-<h3>3. Kiểm tra khi nấu</h3>
-<p>Yến thật khi chưng có mùi thơm đặc trưng nhẹ nhàng, nước chưng trong, không có mùi lạ. Yến giả thường có mùi tanh hoặc mùi hóa chất.</p>
+1. Kiểm tra bằng mắt
+Yến thật có màu trắng ngà đến vàng nhạt tự nhiên, hình dạng tổ cuộn, sợi yến mảnh và rõ nét. Bề mặt hơi bóng nhẹ, không quá trắng bất thường (dấu hiệu tẩy trắng bằng hóa chất).
 
-<h3>4. Kiểm tra vị</h3>
-<p>Yến thật có vị ngọt thanh tự nhiên, sợi yến dai nhẹ khi nhai. Yến giả thường nhạt nhẽo hoặc có vị lạ.</p>
+2. Kiểm tra khi ngâm nước
+Yến thật khi ngâm nước lạnh sẽ nở ra từ từ, sợi yến dài và dai, không tan rã. Yến giả thường tan nhanh hoặc không nở đều.
 
-<h2>Cách Mua Yến An Toàn</h2>
-<p>Chỉ mua tại các cửa hàng uy tín có giấy chứng nhận vệ sinh an toàn thực phẩm. Yêu cầu xem giấy tờ xuất xứ sản phẩm. Tránh mua yến quá rẻ so với thị trường vì yến thật chưa bao giờ rẻ.</p>`,
+3. Kiểm tra khi nấu
+Yến thật khi chưng có mùi thơm đặc trưng nhẹ nhàng, nước chưng trong, không có mùi lạ. Yến giả thường có mùi tanh hoặc mùi hóa chất.
+
+4. Kiểm tra vị
+Yến thật có vị ngọt thanh tự nhiên, sợi yến dai nhẹ khi nhai. Yến giả thường nhạt nhẽo hoặc có vị lạ.
+
+CÁCH MUA YẾN AN TOÀN
+
+Chỉ mua tại các cửa hàng uy tín có giấy chứng nhận vệ sinh an toàn thực phẩm. Yêu cầu xem giấy tờ xuất xứ sản phẩm. Tránh mua yến quá rẻ so với thị trường vì yến thật chưa bao giờ rẻ.`,
     'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800&q=80',
     'TARA NEST'
   );
@@ -217,26 +222,29 @@ module.exports = function seed(db) {
     'Thời Điểm Tốt Nhất Để Ăn Yến Sào Và Những Lưu Ý Quan Trọng',
     'thoi-diem-tot-nhat-an-yen-sao',
     'Nhiều người dùng yến sào nhưng chưa biết thời điểm ăn nào sẽ mang lại hiệu quả tốt nhất. Hãy cùng TARA NEST tìm hiểu...',
-    `<h2>Ăn Yến Sào Lúc Nào Tốt Nhất?</h2>
-<p>Câu hỏi này được rất nhiều khách hàng hỏi chúng tôi. Thực tế, thời điểm ăn yến sào có ảnh hưởng đáng kể đến khả năng hấp thu dinh dưỡng của cơ thể.</p>
+    `ĂN YẾN SÀO LÚC NÀO TỐT NHẤT?
 
-<h2>Buổi Sáng - Thời Điểm Vàng</h2>
-<p>Ăn yến sào vào buổi sáng khi bụng còn rỗng (khoảng 7-8 giờ) được xem là thời điểm tốt nhất. Lúc này hệ tiêu hóa đã nghỉ ngơi qua đêm, sẵn sàng hấp thu dinh dưỡng tối đa. Các protein và axit amin trong yến sẽ được hấp thu nhanh và hiệu quả hơn.</p>
+Câu hỏi này được rất nhiều khách hàng hỏi chúng tôi. Thực tế, thời điểm ăn yến sào có ảnh hưởng đáng kể đến khả năng hấp thu dinh dưỡng của cơ thể.
 
-<h2>Buổi Tối Trước Khi Ngủ</h2>
-<p>Đây là lựa chọn tốt thứ hai. Ăn yến trước khi ngủ 1-2 tiếng giúp cơ thể có thời gian hấp thu dưỡng chất trong khi ngủ - giai đoạn cơ thể tăng trưởng và phục hồi mạnh nhất.</p>
+BUỔI SÁNG - THỜI ĐIỂM VÀNG
 
-<h2>Những Lưu Ý Quan Trọng</h2>
-<ul>
-<li>Không ăn cùng thức ăn nhiều dầu mỡ vì sẽ cản trở hấp thu protein yến</li>
-<li>Người bị cảm cúm, sốt không nên ăn yến vì sẽ làm triệu chứng nặng hơn</li>
-<li>Trẻ em dưới 18 tháng không nên dùng yến sào</li>
-<li>Phụ nữ mang thai tháng đầu nên hỏi bác sĩ trước khi dùng</li>
-<li>Mỗi ngày chỉ cần 1 lọ yến (30-50ml), không nên ăn quá nhiều</li>
-</ul>
+Ăn yến sào vào buổi sáng khi bụng còn rỗng (khoảng 7-8 giờ) được xem là thời điểm tốt nhất. Lúc này hệ tiêu hóa đã nghỉ ngơi qua đêm, sẵn sàng hấp thu dinh dưỡng tối đa. Các protein và axit amin trong yến sẽ được hấp thu nhanh và hiệu quả hơn.
 
-<h2>Thực Đơn Kết Hợp Hiệu Quả</h2>
-<p>Yến sào kết hợp tốt với: saffron (tăng chống oxy hóa), hạt sen (an thần), táo đỏ (bổ huyết), đông trùng (tăng sinh lực). Tránh kết hợp với thực phẩm chứa nhiều axit (nước chanh, giấm) vì có thể làm biến tính protein yến.</p>`,
+BUỔI TỐI TRƯỚC KHI NGỦ
+
+Đây là lựa chọn tốt thứ hai. Ăn yến trước khi ngủ 1-2 tiếng giúp cơ thể có thời gian hấp thu dưỡng chất trong khi ngủ - giai đoạn cơ thể tăng trưởng và phục hồi mạnh nhất.
+
+NHỮNG LƯU Ý QUAN TRỌNG
+
+• Không ăn cùng thức ăn nhiều dầu mỡ vì sẽ cản trở hấp thu protein yến
+• Người bị cảm cúm, sốt không nên ăn yến vì sẽ làm triệu chứng nặng hơn
+• Trẻ em dưới 18 tháng không nên dùng yến sào
+• Phụ nữ mang thai tháng đầu nên hỏi bác sĩ trước khi dùng
+• Mỗi ngày chỉ cần 1 lọ yến (30-50ml), không nên ăn quá nhiều
+
+THỰC ĐƠN KẾT HỢP HIỆU QUẢ
+
+Yến sào kết hợp tốt với: saffron (tăng chống oxy hóa), hạt sen (an thần), táo đỏ (bổ huyết), đông trùng (tăng sinh lực). Tránh kết hợp với thực phẩm chứa nhiều axit (nước chanh, giấm) vì có thể làm biến tính protein yến.`,
     'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80',
     'TARA NEST'
   );
@@ -245,14 +253,24 @@ module.exports = function seed(db) {
     'Yến Sào Cho Bà Bầu - Lợi Ích Và Những Điều Cần Biết',
     'yen-sao-cho-ba-bau',
     'Yến sào có tốt cho bà bầu không? Ăn yến sào khi mang thai tháng mấy là an toàn? TARA NEST giải đáp chi tiết cho các mẹ...',
-    `<h2>Yến Sào Có Tốt Cho Bà Bầu Không?</h2>
-<p>Đây là câu hỏi được rất nhiều mẹ bầu quan tâm. Câu trả lời là CÓ - yến sào rất tốt cho phụ nữ mang thai, nhưng cần lưu ý thời điểm và liều lượng phù hợp.</p>
+    `YẾN SÀO CÓ TỐT CHO BÀ BẦU KHÔNG?
 
-<h2>Lợi Ích Của Yến Sào Với Mẹ Bầu</h2>
-<p>Protein và axit amin trong yến sào hỗ trợ sự phát triển của thai nhi, đặc biệt là hệ thần kinh và não bộ. Các khoáng chất giúp bổ sung canxi, sắt cho mẹ. Glycoprotein giúp mẹ duy trì làn da đẹp trong thai kỳ.</p>
+Đây là câu hỏi được rất nhiều mẹ bầu quan tâm. Câu trả lời là CÓ - yến sào rất tốt cho phụ nữ mang thai, nhưng cần lưu ý thời điểm và liều lượng phù hợp.
 
-<h2>Nên Ăn Yến Từ Tháng Thứ Mấy?</h2>
-<p>Các chuyên gia dinh dưỡng khuyên nên bắt đầu ăn yến từ tháng thứ 4 của thai kỳ trở đi, khi thai nhi đã ổn định. Tránh dùng trong 3 tháng đầu do cơ thể chưa ổn định.</p>`,
+LỢI ÍCH CỦA YẾN SÀO VỚI MẸ BẦU
+
+Protein và axit amin trong yến sào hỗ trợ sự phát triển của thai nhi, đặc biệt là hệ thần kinh và não bộ. Các khoáng chất giúp bổ sung canxi, sắt cho mẹ. Glycoprotein giúp mẹ duy trì làn da đẹp trong thai kỳ.
+
+NÊN ĂN YẾN TỪ THÁNG THỨ MẤY?
+
+Các chuyên gia dinh dưỡng khuyên nên bắt đầu ăn yến từ tháng thứ 4 của thai kỳ trở đi, khi thai nhi đã ổn định. Tránh dùng trong 3 tháng đầu do cơ thể chưa ổn định.
+
+LƯU Ý KHI DÙNG YẾN CHO BÀ BẦU
+
+• Chọn yến chưng ít đường hoặc không đường nếu mẹ bị tiểu đường thai kỳ
+• Mỗi ngày chỉ cần 1 lọ yến (30-50ml), không cần ăn nhiều hơn
+• Ưu tiên dùng vào buổi sáng sau bữa điểm tâm nhẹ
+• Nên tham khảo ý kiến bác sĩ nếu mẹ có bệnh lý đặc biệt`,
     'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80',
     'TARA NEST'
   );

@@ -49,9 +49,9 @@ export default function BlogDetail() {
               <span className="flex items-center gap-1"><User size={12} />{post.author}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-snug">{post.title}</h1>
-            <div
-              className="prose prose-sm md:prose max-w-none text-gray-700 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="text-gray-700 leading-relaxed text-sm md:text-base whitespace-pre-wrap">
+              {post.content}
+            </div>
             <div className="mt-8 pt-6 border-t border-gray-100">
               <Link to="/tin-tuc" className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm">
                 <ArrowLeft size={16} /> Quay Lại Blog

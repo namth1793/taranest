@@ -26,6 +26,7 @@ app.use('/api/blog', require('./routes/blog'));
 app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/orders', require('./routes/orders'));
+app.use('/api/admin', require('./routes/admin'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', app: 'TARA NEST API' }));
 

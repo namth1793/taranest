@@ -88,11 +88,25 @@ function initDB() {
       payment_method TEXT DEFAULT 'cod',
       created_at TEXT DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS admins (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `);
 
   const count = db.prepare('SELECT COUNT(*) as c FROM categories').get();
   if (count.c === 0) {
     require('./seed')(db);
+  }
+
+  const adminCount = db.prepare('SELECT COUNT(*) as c FROM admins').get();
+  if (adminCount.c === 0) {
+    const bcrypt = require('bcryptjs');
+    const hash = bcrypt.hashSync('admin123', 10);
+    db.prepare('INSERT INTO admins (username, password) VALUES (?,?)').run('admin', hash);
   }
 }
 

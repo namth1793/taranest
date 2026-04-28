@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Youtube, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Youtube, Instagram, Lock } from 'lucide-react';
 const logo = '/logo.png';
 
 export default function Footer() {
@@ -102,8 +102,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-primary-900 text-center py-4 text-xs text-primary-500">
-        © 2024 TARA NEST – Tinh Hoa Yến Sào Thiên Nhiên. All rights reserved.
+      <div className="border-t border-primary-900 py-4 text-xs text-primary-500 max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <span>© 2024 TARA NEST – Tinh Hoa Yến Sào Thiên Nhiên. All rights reserved.</span>
+        <Link to="/admin/login" className="text-primary-800 hover:text-primary-500 transition-colors" title="Admin">
+          <Lock size={13} />
+        </Link>
       </div>
     </footer>
   );

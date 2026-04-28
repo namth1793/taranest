@@ -11,11 +11,12 @@ import BlogDetail from './pages/BlogDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
-export default function App() {
+function PublicLayout() {
   return (
     <>
-      <ScrollToTop />
       <Navbar />
       <CartDrawer />
       <main>
@@ -31,6 +32,19 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/*" element={<PublicLayout />} />
+      </Routes>
     </>
   );
 }

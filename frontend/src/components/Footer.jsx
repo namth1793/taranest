@@ -4,25 +4,25 @@ const logo = '/logo.png';
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-950 text-primary-100">
+    <footer className="bg-white text-gray-700 border-t border-gray-200">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
           <div className="mb-4">
-            <img src={logo} alt="TARA NEST" className="h-20 w-auto object-contain brightness-0 invert opacity-90" />
+            <img src={logo} alt="TARA NEST" className="h-20 w-auto object-contain" />
           </div>
-          <p className="text-sm text-primary-300 leading-relaxed mb-5">
+          <p className="text-sm text-gray-500 leading-relaxed mb-5">
             TARA NEST – thương hiệu yến sào cao cấp với cam kết 100% nguyên chất từ thiên nhiên, không chất bảo quản, không phẩm màu.
           </p>
           <div className="flex gap-3">
-            <a href="#" className="w-9 h-9 rounded-full bg-primary-800 hover:bg-gold flex items-center justify-center transition-colors">
+            <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gold hover:text-white flex items-center justify-center transition-colors text-gray-600">
               <Facebook size={16} />
             </a>
-            <a href="#" className="w-9 h-9 rounded-full bg-primary-800 hover:bg-gold flex items-center justify-center transition-colors">
+            <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gold hover:text-white flex items-center justify-center transition-colors text-gray-600">
               <Youtube size={16} />
             </a>
-            <a href="#" className="w-9 h-9 rounded-full bg-primary-800 hover:bg-gold flex items-center justify-center transition-colors">
+            <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gold hover:text-white flex items-center justify-center transition-colors text-gray-600">
               <Instagram size={16} />
             </a>
           </div>
@@ -30,8 +30,8 @@ export default function Footer() {
 
         {/* Quick links */}
         <div>
-          <h4 className="font-bold text-white mb-4 uppercase text-sm tracking-wider">Sản Phẩm</h4>
-          <ul className="space-y-2 text-sm text-primary-300">
+          <h4 className="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Sản Phẩm</h4>
+          <ul className="space-y-2 text-sm text-gray-500">
             {[
               ['Yến Chưng Tươi', '/san-pham?category=yen-chung-tuoi'],
               ['Yến Chưng Sẵn', '/san-pham?category=yen-chung-san'],
@@ -48,8 +48,8 @@ export default function Footer() {
 
         {/* Info */}
         <div>
-          <h4 className="font-bold text-white mb-4 uppercase text-sm tracking-wider">Thông Tin</h4>
-          <ul className="space-y-2 text-sm text-primary-300">
+          <h4 className="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Thông Tin</h4>
+          <ul className="space-y-2 text-sm text-gray-500">
             {[
               ['Giới Thiệu', '/gioi-thieu'],
               ['Tin Tức & Blog', '/tin-tuc'],
@@ -66,8 +66,8 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <h4 className="font-bold text-white mb-4 uppercase text-sm tracking-wider">Liên Hệ</h4>
-          <div className="space-y-3 text-sm text-primary-300">
+          <h4 className="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Liên Hệ</h4>
+          <div className="space-y-3 text-sm text-gray-500">
             <div className="flex gap-2">
               <MapPin size={16} className="text-gold shrink-0 mt-0.5" />
               <span>59 Đốc Ngữ - Ba Đình - Hà Nội</span>
@@ -84,27 +84,27 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-5">
-            <p className="text-xs text-primary-400 mb-2">Giờ làm việc:</p>
-            <p className="text-sm text-primary-200">T2 – T7: 8:00 – 20:00</p>
-            <p className="text-sm text-primary-200">CN: 9:00 – 17:00</p>
+            <p className="text-xs text-gray-400 mb-2">Giờ làm việc:</p>
+            <p className="text-sm text-gray-600">T2 – T7: 8:00 – 20:00</p>
+            <p className="text-sm text-gray-600">CN: 9:00 – 17:00</p>
           </div>
         </div>
       </div>
 
       {/* Payment logos */}
-      <div className="border-t border-primary-900 max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p className="text-xs text-primary-400">Chấp nhận thanh toán:</p>
-        <div className="flex gap-2 text-xs text-primary-300">
-          <span className="bg-primary-900 px-3 py-1 rounded">COD</span>
-          <span className="bg-primary-900 px-3 py-1 rounded">Chuyển Khoản</span>
-          <span className="bg-primary-900 px-3 py-1 rounded">MoMo</span>
-          <span className="bg-primary-900 px-3 py-1 rounded">VNPay</span>
+      <div className="border-t border-gray-200 max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p className="text-xs text-gray-400">Chấp nhận thanh toán:</p>
+        <div className="flex gap-2 text-xs text-gray-600">
+          <span className="bg-gray-100 px-3 py-1 rounded">COD</span>
+          <span className="bg-gray-100 px-3 py-1 rounded">Chuyển Khoản</span>
+          <span className="bg-gray-100 px-3 py-1 rounded">MoMo</span>
+          <span className="bg-gray-100 px-3 py-1 rounded">VNPay</span>
         </div>
       </div>
 
-      <div className="border-t border-primary-900 py-4 text-xs text-primary-500 max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <div className="border-t border-gray-200 py-4 text-xs text-gray-400 max-w-7xl mx-auto px-4 flex items-center justify-between">
         <span>© 2024 TARA NEST – Tinh Hoa Yến Sào Thiên Nhiên. All rights reserved.</span>
-        <Link to="/admin/login" className="flex items-center gap-1 text-primary-600 hover:text-primary-300 transition-colors text-xs">
+        <Link to="/admin/login" className="flex items-center gap-1 text-gray-300 hover:text-gray-500 transition-colors text-xs">
           <Lock size={11} /> Admin
         </Link>
       </div>

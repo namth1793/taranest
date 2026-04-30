@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock } from 'lucide-react';
+import { Lock, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../lib/api';
 
@@ -64,6 +64,14 @@ export default function AdminLogin() {
             {loading ? 'Đang đăng nhập...' : 'Đăng Nhập'}
           </button>
         </form>
+
+        <button
+          onClick={() => navigate('/')}
+          className="mt-5 w-full flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-primary-700 transition-colors"
+        >
+          <ArrowLeft size={15} />
+          Quay về trang chủ
+        </button>
       </div>
     </div>
   );

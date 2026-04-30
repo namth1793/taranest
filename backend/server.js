@@ -28,6 +28,14 @@ app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/admin', require('./routes/admin'));
 
+app.get('/api/about-content', (req, res) => {
+  const { db } = require('./db/database');
+  const rows = db.prepare("SELECT key, value FROM site_content WHERE key LIKE 'about_%'").all();
+  const result = {};
+  rows.forEach(r => { try { result[r.key] = JSON.parse(r.value); } catch { result[r.key] = r.value; } });
+  res.json(result);
+});
+
 app.get('/api/health', (req, res) => res.json({ status: 'ok', app: 'TARA NEST API' }));
 
 app.listen(PORT, () => {

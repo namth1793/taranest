@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, ShoppingBag, MessageSquare, Package, FileText, ChevronDown, Upload, X, Plus, Pencil, Trash2 } from 'lucide-react';
+import { LogOut, ShoppingBag, MessageSquare, Package, Newspaper, Info, ChevronDown, Upload, X, Plus, Pencil, Trash2, GripVertical } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../lib/api';
 
@@ -326,10 +326,117 @@ function ProductEditForm({ product, onSave, onCancel }) {
   );
 }
 
+// ── PRODUCT CREATE FORM ───────────────────────────────────
+function ProductCreateForm({ onSave, onCancel }) {
+  const [form, setForm] = useState({
+    name: '', category_id: '', short_desc: '', description: '',
+    price: '', original_price: '', stock: 100,
+    is_featured: false, is_bestseller: false, image: '',
+  });
+  const [categories, setCategories] = useState([]);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    api.get('/admin/categories', authHeader()).then(r => setCategories(r.data)).catch(() => {});
+  }, []);
+
+  const f = (k) => e => setForm(p => ({ ...p, [k]: e.target.value }));
+
+  const save = async () => {
+    if (!form.name || !form.price || !form.category_id) {
+      toast.error('Vui lòng điền tên, giá và chọn danh mục');
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await api.post('/admin/products', form, authHeader());
+      toast.success('Đã thêm sản phẩm mới');
+      onSave({ ...form, id: res.data.id, slug: res.data.slug });
+    } catch { toast.error('Thêm sản phẩm thất bại'); }
+    finally { setSaving(false); }
+  };
+
+  return (
+    <div className="bg-white border border-primary-200 rounded-xl shadow-sm p-5 mb-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="font-bold text-gray-800">Thêm Sản Phẩm Mới</h3>
+        <button onClick={onCancel} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="sm:col-span-2">
+          <label className="label">Tên sản phẩm *</label>
+          <input value={form.name} onChange={f('name')} className="input-field" placeholder="Tên sản phẩm" />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="label">Danh mục *</label>
+          <select value={form.category_id} onChange={f('category_id')} className="input-field">
+            <option value="">-- Chọn danh mục --</option>
+            {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="label">Giá bán (đ) *</label>
+          <input type="number" value={form.price} onChange={f('price')} className="input-field" placeholder="0" />
+        </div>
+        <div>
+          <label className="label">Giá gốc (đ)</label>
+          <input type="number" value={form.original_price} onChange={f('original_price')} className="input-field" placeholder="0" />
+        </div>
+        <div>
+          <label className="label">Tồn kho</label>
+          <input type="number" value={form.stock} onChange={f('stock')} className="input-field" placeholder="100" />
+        </div>
+        <div className="flex items-center gap-6 pt-5">
+          <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <input type="checkbox" checked={form.is_featured}
+              onChange={e => setForm(p => ({ ...p, is_featured: e.target.checked }))}
+              className="accent-primary-600 w-4 h-4" />
+            Nổi bật
+          </label>
+          <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <input type="checkbox" checked={form.is_bestseller}
+              onChange={e => setForm(p => ({ ...p, is_bestseller: e.target.checked }))}
+              className="accent-primary-600 w-4 h-4" />
+            Bán chạy
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label className="label">Mô tả ngắn</label>
+        <textarea value={form.short_desc} onChange={f('short_desc')} rows={2}
+          className="input-field resize-none" placeholder="Mô tả ngắn..." />
+      </div>
+      <div>
+        <label className="label">Mô tả chi tiết</label>
+        <textarea value={form.description} onChange={f('description')} rows={4}
+          className="input-field resize-none" placeholder="Nội dung mô tả đầy đủ..." />
+      </div>
+      <div>
+        <label className="label">Ảnh sản phẩm</label>
+        <ImageUploader value={form.image} onChange={url => setForm(p => ({ ...p, image: url }))} />
+      </div>
+
+      <div className="flex gap-2">
+        <button onClick={save} disabled={saving}
+          className="bg-primary-700 hover:bg-primary-800 text-white text-sm px-5 py-2 rounded-lg transition-colors disabled:opacity-60">
+          {saving ? 'Đang thêm...' : 'Thêm Sản Phẩm'}
+        </button>
+        <button onClick={onCancel}
+          className="border border-gray-200 text-sm px-5 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+          Huỷ
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── PRODUCTS TAB ──────────────────────────────────────────
 function ProductsTab() {
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(null);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     api.get('/admin/products', authHeader()).then(r => setProducts(r.data)).catch(() => {});
@@ -337,7 +444,26 @@ function ProductsTab() {
 
   return (
     <div>
-      <h2 className="text-lg font-bold text-gray-800 mb-5">Sản Phẩm ({products.length})</h2>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-lg font-bold text-gray-800">Sản Phẩm ({products.length})</h2>
+        {!creating && (
+          <button onClick={() => setCreating(true)}
+            className="flex items-center gap-1.5 bg-primary-700 text-white text-sm px-4 py-2 rounded-lg hover:bg-primary-800 transition-colors">
+            <Plus size={15} /> Thêm Sản Phẩm
+          </button>
+        )}
+      </div>
+
+      {creating && (
+        <ProductCreateForm
+          onSave={(newProduct) => {
+            setProducts(prev => [newProduct, ...prev]);
+            setCreating(false);
+          }}
+          onCancel={() => setCreating(false)}
+        />
+      )}
+
       <div className="space-y-2">
         {products.map(p => (
           <div key={p.id} className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
@@ -545,12 +671,209 @@ function BlogTab() {
   );
 }
 
+// ── ABOUT TAB ─────────────────────────────────────────────
+const ABOUT_SECTIONS = [
+  { key: 'story',      label: 'Câu Chuyện' },
+  { key: 'stats',      label: 'Thống Kê' },
+  { key: 'team',       label: 'Đội Ngũ' },
+  { key: 'milestones', label: 'Hành Trình' },
+];
+
+function AboutTab() {
+  const [data, setData] = useState(null);
+  const [section, setSection] = useState('story');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    api.get('/admin/about', authHeader()).then(r => setData(r.data)).catch(() => {});
+  }, []);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      await api.put('/admin/about', data, authHeader());
+      toast.success('Đã lưu nội dung trang Giới Thiệu');
+    } catch { toast.error('Lưu thất bại'); }
+    finally { setSaving(false); }
+  };
+
+  if (!data) return <div className="text-center py-16 text-gray-400">Đang tải...</div>;
+
+  const setStory = (k, v) => setData(p => ({ ...p, about_story: { ...p.about_story, [k]: v } }));
+  const setStat = (i, k, v) => setData(p => {
+    const stats = [...(p.about_stats || [])];
+    stats[i] = { ...stats[i], [k]: v };
+    return { ...p, about_stats: stats };
+  });
+  const setMember = (i, k, v) => setData(p => {
+    const team = [...(p.about_team || [])];
+    team[i] = { ...team[i], [k]: v };
+    return { ...p, about_team: team };
+  });
+  const setMilestone = (i, k, v) => setData(p => {
+    const ms = [...(p.about_milestones || [])];
+    ms[i] = { ...ms[i], [k]: v };
+    return { ...p, about_milestones: ms };
+  });
+  const addMilestone = () => setData(p => ({
+    ...p, about_milestones: [...(p.about_milestones || []), { year: '', event: '' }]
+  }));
+  const delMilestone = (i) => setData(p => ({
+    ...p, about_milestones: (p.about_milestones || []).filter((_, idx) => idx !== i)
+  }));
+  const addMember = () => setData(p => ({
+    ...p, about_team: [...(p.about_team || []), { name: '', role: '', img: '', desc: '' }]
+  }));
+  const delMember = (i) => setData(p => ({
+    ...p, about_team: (p.about_team || []).filter((_, idx) => idx !== i)
+  }));
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-lg font-bold text-gray-800">Trang Giới Thiệu</h2>
+        <button onClick={save} disabled={saving}
+          className="bg-primary-700 hover:bg-primary-800 text-white text-sm px-4 py-2 rounded-lg transition-colors disabled:opacity-60">
+          {saving ? 'Đang lưu...' : 'Lưu Thay Đổi'}
+        </button>
+      </div>
+
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+        {ABOUT_SECTIONS.map(s => (
+          <button key={s.key} onClick={() => setSection(s.key)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+              section === s.key
+                ? 'bg-primary-100 text-primary-700 border border-primary-200'
+                : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+            }`}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      {/* STORY */}
+      {section === 'story' && (
+        <div className="bg-white border border-gray-100 rounded-xl p-5 space-y-4 shadow-sm">
+          <div>
+            <label className="label">Tiêu đề chính</label>
+            <input value={data.about_story?.heading || ''} onChange={e => setStory('heading', e.target.value)}
+              className="input-field" placeholder="Từ Đam Mê Đến Sứ Mệnh" />
+          </div>
+          {['para1', 'para2', 'para3'].map((k, i) => (
+            <div key={k}>
+              <label className="label">Đoạn văn {i + 1}</label>
+              <textarea value={data.about_story?.[k] || ''} onChange={e => setStory(k, e.target.value)}
+                rows={4} className="input-field resize-none" placeholder={`Nội dung đoạn ${i + 1}...`} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* STATS */}
+      {section === 'stats' && (
+        <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+          <p className="text-sm text-gray-500 mb-4">4 con số thống kê hiển thị trên trang giới thiệu</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {(data.about_stats || []).map((stat, i) => (
+              <div key={i} className="border border-gray-100 rounded-xl p-4 space-y-3">
+                <div>
+                  <label className="label">Con số (vd: 10.000+)</label>
+                  <input value={stat.num || ''} onChange={e => setStat(i, 'num', e.target.value)}
+                    className="input-field" placeholder="10.000+" />
+                </div>
+                <div>
+                  <label className="label">Nhãn (vd: Khách hàng tin dùng)</label>
+                  <input value={stat.label || ''} onChange={e => setStat(i, 'label', e.target.value)}
+                    className="input-field" placeholder="Khách hàng tin dùng" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TEAM */}
+      {section === 'team' && (
+        <div className="space-y-4">
+          {(data.about_team || []).map((member, i) => (
+            <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-gray-700">Thành viên {i + 1}</span>
+                <button onClick={() => delMember(i)} className="text-red-400 hover:text-red-600 p-1">
+                  <Trash2 size={15} />
+                </button>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="label">Họ tên</label>
+                  <input value={member.name || ''} onChange={e => setMember(i, 'name', e.target.value)}
+                    className="input-field" placeholder="Nguyễn Văn A" />
+                </div>
+                <div>
+                  <label className="label">Chức vụ</label>
+                  <input value={member.role || ''} onChange={e => setMember(i, 'role', e.target.value)}
+                    className="input-field" placeholder="CEO & Sáng Lập Viên" />
+                </div>
+              </div>
+              <div>
+                <label className="label">URL ảnh đại diện</label>
+                <input value={member.img || ''} onChange={e => setMember(i, 'img', e.target.value)}
+                  className="input-field" placeholder="https://..." />
+              </div>
+              <div>
+                <label className="label">Mô tả</label>
+                <textarea value={member.desc || ''} onChange={e => setMember(i, 'desc', e.target.value)}
+                  rows={2} className="input-field resize-none" placeholder="Kinh nghiệm và chuyên môn..." />
+              </div>
+            </div>
+          ))}
+          <button onClick={addMember}
+            className="flex items-center gap-2 text-sm text-primary-700 border border-primary-200 hover:bg-primary-50 px-4 py-2 rounded-lg transition-colors">
+            <Plus size={15} /> Thêm Thành Viên
+          </button>
+        </div>
+      )}
+
+      {/* MILESTONES */}
+      {section === 'milestones' && (
+        <div className="space-y-3">
+          {(data.about_milestones || []).map((m, i) => (
+            <div key={i} className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex gap-3 items-start">
+              <GripVertical size={16} className="text-gray-300 mt-2 shrink-0" />
+              <div className="flex-1 grid sm:grid-cols-4 gap-3">
+                <div>
+                  <label className="label">Năm</label>
+                  <input value={m.year || ''} onChange={e => setMilestone(i, 'year', e.target.value)}
+                    className="input-field" placeholder="2024" />
+                </div>
+                <div className="sm:col-span-3">
+                  <label className="label">Sự kiện</label>
+                  <input value={m.event || ''} onChange={e => setMilestone(i, 'event', e.target.value)}
+                    className="input-field" placeholder="Mô tả sự kiện..." />
+                </div>
+              </div>
+              <button onClick={() => delMilestone(i)} className="text-red-400 hover:text-red-600 p-1 mt-5 shrink-0">
+                <Trash2 size={15} />
+              </button>
+            </div>
+          ))}
+          <button onClick={addMilestone}
+            className="flex items-center gap-2 text-sm text-primary-700 border border-primary-200 hover:bg-primary-50 px-4 py-2 rounded-lg transition-colors">
+            <Plus size={15} /> Thêm Mốc Thời Gian
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── MAIN DASHBOARD ────────────────────────────────────────
 const TABS = [
-  { key: 'orders',   label: 'Đơn Hàng', icon: ShoppingBag },
-  { key: 'contacts', label: 'Tin Nhắn',  icon: MessageSquare },
-  { key: 'products', label: 'Sản Phẩm', icon: Package },
-  { key: 'blog',     label: 'Bài Viết', icon: FileText },
+  { key: 'orders',   label: 'Đơn Hàng',   icon: ShoppingBag },
+  { key: 'contacts', label: 'Tin Nhắn',    icon: MessageSquare },
+  { key: 'products', label: 'Sản Phẩm',   icon: Package },
+  { key: 'blog',     label: 'Tin Tức',     icon: Newspaper },
+  { key: 'about',    label: 'Giới Thiệu',  icon: Info },
 ];
 
 export default function AdminDashboard() {
@@ -607,6 +930,7 @@ export default function AdminDashboard() {
         {tab === 'contacts' && <ContactsTab />}
         {tab === 'products' && <ProductsTab />}
         {tab === 'blog'     && <BlogTab />}
+        {tab === 'about'    && <AboutTab />}
       </div>
 
       {/* Global styles for form elements */}

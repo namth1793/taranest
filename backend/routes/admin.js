@@ -103,6 +103,40 @@ router.put('/products/:id', auth, (req, res) => {
   res.json({ ok: true });
 });
 
+// ── CATEGORIES (for product form) ────────────────────────
+router.get('/categories', auth, (req, res) => {
+  res.json(db.prepare('SELECT id, name FROM categories ORDER BY sort_order ASC').all());
+});
+
+// ── PRODUCTS (create) ─────────────────────────────────────
+router.post('/products', auth, (req, res) => {
+  const { name, category_id, short_desc, description, price, original_price, stock, is_featured, is_bestseller, image } = req.body;
+  if (!name || !price || !category_id) return res.status(400).json({ error: 'Thiếu tên, giá hoặc danh mục' });
+  const slug = makeSlug(name);
+  const r = db.prepare(`
+    INSERT INTO products (name, slug, category_id, price, original_price, stock, is_featured, is_bestseller, image, short_desc, description)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?)
+  `).run(name, slug, Number(category_id), Number(price), Number(original_price)||null,
+    Number(stock)||0, is_featured?1:0, is_bestseller?1:0, image||'', short_desc||'', description||'');
+  res.status(201).json({ id: r.lastInsertRowid, slug });
+});
+
+// ── ABOUT CONTENT ─────────────────────────────────────────
+router.get('/about', auth, (req, res) => {
+  const rows = db.prepare("SELECT key, value FROM site_content WHERE key LIKE 'about_%'").all();
+  const result = {};
+  rows.forEach(r => { try { result[r.key] = JSON.parse(r.value); } catch { result[r.key] = r.value; } });
+  res.json(result);
+});
+
+router.put('/about', auth, (req, res) => {
+  const upsert = db.prepare('INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)');
+  Object.entries(req.body).forEach(([k, v]) => {
+    if (k.startsWith('about_')) upsert.run(k, JSON.stringify(v));
+  });
+  res.json({ ok: true });
+});
+
 // ── BLOG ─────────────────────────────────────────────────
 router.get('/blog', auth, (req, res) => {
   res.json(db.prepare('SELECT * FROM blog_posts ORDER BY id DESC').all());
